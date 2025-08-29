@@ -1,55 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hunger-Free Homes</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" 
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hunger-Free Homes</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+  <style>
+    .hidden { display: none; }
+    .page-content img { max-width: 100%; border-radius: 15px; margin-top: 20px; }
+    .page-content button {
+      padding: 10px 20px;
+      font-size: 1em;
+      border-radius: 10px;
+      border: none;
+      background-color: #48BB78;
+      color: white;
+      cursor: pointer;
+    }
+    .page-content i {
+      font-size: 3em;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
-    <div class="app-container">
-        <header>
-            <h1>Hunger-Free Homes</h1>
-        </header>
+  <div class="app-container">
+    <header>
+      <h1>Hunger-Free Homes</h1>
+    </header>
 
-        <main class="grid-container">
-            <a href="donate.html" class="grid-item donate">
-                <div class="icon-placeholder">
-                    <i class="fas fa-box"></i> 
-                </div>
-                <span class="label">Donate</span>
-            </a>
+    <main class="grid-container">
+      <a href="#" class="grid-item donate" data-page="donate">
+        <div class="icon-placeholder"><i class="fas fa-box"></i></div>
+        <span class="label">Donate</span>
+      </a>
 
-            <a href="connect.html" class="grid-item connect">
-                <div class="icon-placeholder">
-                    <i class="fas fa-comments"></i> 
-                </div>
-                <span class="label">Connect</span>
-            </a>
+      <a href="#" class="grid-item connect" data-page="connect">
+        <div class="icon-placeholder"><i class="fas fa-comments"></i></div>
+        <span class="label">Connect</span>
+      </a>
 
-            <a href="deliver.html" class="grid-item deliver">
-                <div class="icon-placeholder">
-                    <i class="fas fa-truck-fast"></i> 
-                </div>
-                <span class="label">Deliver</span>
-            </a>
+      <a href="#" class="grid-item deliver" data-page="deliver">
+        <div class="icon-placeholder"><i class="fas fa-truck-fast"></i></div>
+        <span class="label">Deliver</span>
+      </a>
 
-            <a href="serve.html" class="grid-item serve">
-                <div class="icon-placeholder">
-                    <i class="fas fa-handshake"></i> 
-                </div>
-                <span class="label">Serve</span>
-            </a>
-        </main>
+      <a href="#" class="grid-item serve" data-page="serve">
+        <div class="icon-placeholder"><i class="fas fa-handshake"></i></div>
+        <span class="label">Serve</span>
+      </a>
+    </main>
 
-        <footer>
-            <p>All-in-One Food Donation Platform</p>
-        </footer>
-    </div>
+    <section id="dynamic-content" class="page-content hidden"></section>
 
-    <!-- 👇 Add your JavaScript file here -->
-    <script src="script.js"></script>
+    <footer>
+      <p>All-in-One Food Donation Platform</p>
+    </footer>
+  </div>
+
+  <script>
+    const buttons = document.querySelectorAll('.grid-item');
+    const contentArea = document.getElementById('dynamic-content');
+    const grid = document.querySelector('.grid-container');
+
+    const pages = {
+      donate: `
+        <h1>Welcome to Donate</h1>
+        <p>Scan the QR code below to make a donation:</p>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://yourdonationlink.com&size=150x150" alt="Donate QR Code">
+      `,
+      connect: `
+        <h1>Connect</h1>
+        <p>Connect our service to donate.</p>
+        <button onclick="alert('Connecting...')">Connect</button>
+      `,
+      deliver: `
+        <h1>Deliver</h1>
+        <p>Deliver your food to those in need.</p>
+        <i class="fas fa-map-marked-alt"></i>
+      `,
+      serve: `
+        <h1>Serve</h1>
+        <p>Serve with your hands.</p>
+        <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=800&q=80" alt="Serving Food">
+      `
+    };
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.preventDefault();
+        const page = btn.getAttribute('data-page');
+        contentArea.innerHTML = pages[page];
+        grid.classList.add('hidden');
+        contentArea.classList.remove('hidden');
+      });
+    });
+  </script>
 </body>
 </html>
